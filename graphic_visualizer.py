@@ -399,6 +399,8 @@ class GraphicVisualizer(MovingCameraScene):
         return Group.add(tex, tex2, tex3)
 
     def intro(self, sim_params, network_data):
+        """Alternative info intro video animation"""
+        
         dot = Dot(UP * 2 + LEFT, fill_opacity=0)
         self.add(dot)
         net_sim_par = network_data[CONST.NETWORK["SIM_PARAMS"]]
