@@ -1,5 +1,7 @@
 from manim import *
 
+""" Offical manim example for presentation"""
+
 class BooleanOperations(Scene):
     def construct(self):
         ellipse1 = Ellipse(

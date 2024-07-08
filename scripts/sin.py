@@ -1,5 +1,7 @@
 from manim import *
 
+""" Offical manim example for presentation"""
+
 class SineCurveUnitCircle(Scene):
     # contributed by heejin_park, https://infograph.tistory.com/230
     def construct(self):
