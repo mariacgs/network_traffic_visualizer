@@ -5,6 +5,8 @@
     Faster rendering: manim -pql --disable_caching graphic_visualizer.py ClassName
     Reducing fps: manim -pql --fps 15 --disable_caching graphic_visualizer.py GraphicVisualizer
 
+    Author: Francesco Pannozzo
+
 """
 
 import logging

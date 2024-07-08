@@ -5,6 +5,8 @@ Description:
     The script load data from network.yaml and packets.yaml and 
     calculates the payloads sums (bytes) for every updateDeltaTime in the
     time simulation and the averages in delta time, updated every updateDeltaTime
+
+    Author: Francesco Pannozzo
 """
 
 from datetime import datetime, timedelta
