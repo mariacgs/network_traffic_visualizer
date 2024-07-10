@@ -289,37 +289,27 @@ logging.debug("NETWORK and PACKETS structure creation time:%s", utils.get_test_d
 if not os.path.exists("./data"):
     os.makedirs("./data")
 
-try:
-    logging.info("Writing network.yaml file..")
-    with open('./data/network.yaml', 'w', encoding="utf-8") as file:
-        yaml.dump(networkData, file)
-        #json.dump(networkData, file, ensure_ascii=False, indent=4)
-    logging.info("..network.yaml file creation done!")
 
-    start_test_time = datetime.now()
+logging.info("Writing network.yaml file..")
+with open('./data/network.yaml', 'w', encoding="utf-8") as file:
+    yaml.dump(networkData, file)
+logging.info("..network.yaml file creation done!")
 
-    logging.info("Writing packets file..")
-    # readeblePackets key in sim_setup.yaml file allow to choose if you want a 
-    # readeble packets.yaml file having a bigger file and bigger computational time, or
-    # a not readeble packets.yaml file having a smaller file and a better
-    # computational time
+start_test_time = datetime.now()
 
-    if setup["packetsFile"] == "json":
-        with open('./data/packets.json', 'w', encoding="utf-8") as file:
-            json.dump(packets, file, ensure_ascii=False, indent=4)
-    else:
-        with open('./data/packets.yaml', 'w', encoding="utf-8") as file:
-            yaml.dump(packets, file)
-            #yaml.dump(packets, file, default_flow_style=False)
-    logging.info("..packets file creation done!")
-    
-    logging.debug("NETWORK and PACKETS structure writing time:%s", utils.get_test_duration(start_test_time))
+logging.info("Writing packets file..")
+# readeblePackets key in sim_setup.yaml file allow to choose if you want a 
+# readeble packets.yaml file having a bigger file and bigger computational time, or
+# a not readeble packets.yaml file having a smaller file and a better
+# computational time
 
-except OSError as e:
-    print(f"I/O error: {e}")
-except yaml.YAMLError as e:
-    print(f"YAML error: {e}")
+if setup["packetsFile"] == "json":
+    with open('./data/packets.json', 'w', encoding="utf-8") as file:
+        json.dump(packets, file, ensure_ascii=False, indent=4)
+else:
+    with open('./data/packets.yaml', 'w', encoding="utf-8") as file:
+        yaml.dump(packets, file)
+        #yaml.dump(packets, file, default_flow_style=False)
+logging.info("..packets file creation done!")
 
-
-#any_key = input("Press any key to exit")
-#sys.exit()
+logging.debug("NETWORK and PACKETS structure writing time:%s", utils.get_test_duration(start_test_time))
