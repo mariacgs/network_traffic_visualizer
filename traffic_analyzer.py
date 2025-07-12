@@ -11,10 +11,13 @@ Description:
 
 from datetime import datetime, timedelta
 import logging
-#import sys
+#import sy
+import os
 import yaml
 from utils import utils
 from utils import CONSTANTS as CONST
+
+path = os.path.join("network_traffic_visualizer", "data")
 
 # Logger config
 logging.basicConfig(
@@ -22,25 +25,30 @@ logging.basicConfig(
     format='%(asctime)s [%(levelname)s] %(message)s',
     handlers=[
         # Adding one handler to manage the messages on a file
-        logging.FileHandler('./log_files/traffic_analyzer_log.txt', mode='w'),
+        logging.FileHandler('./network_traffic_visualizer/log_files/traffic_analyzer_log.txt', mode='w'),
         # Adding one handler to see messages on console
         logging.StreamHandler()
     ]
 )
+
+pathNetwork = os.path.join(path, "network")
+pathPackets = os.path.join(path, "packets")
+pathAnalyzedData = os.path.join(path, "analyzed_data,yaml")
 
 start_test_time = datetime.now()
 
 logging.info("Loading files..")
 
 logging.info("Loading network file..")
-networkData = utils.file_loader("./data/network", "yaml")
+networkData = utils.file_loader(pathNetwork, "yaml")
 logging.info("..done!")
 
 SIM_PARAMETERS = CONST.NETWORK["SIM_PARAMS"]
 utils.check_network_sim_setup(networkData[SIM_PARAMETERS])
 
 logging.info("Loading packets file..")
-packetsData = utils.file_loader("./data/packets", networkData[SIM_PARAMETERS]["packetsFile"])
+#packetsData = utils.file_loader(pathPackets, networkData[SIM_PARAMETERS]["packetsFile"])
+packetsData = utils.file_loader("packets", "yaml")
 logging.info("..done!")
 
 
@@ -217,7 +225,7 @@ fileStructure.append(analyzed_data)
 # frontend file input
 logging.info("Writing analyzed_data_test.yaml file..")
 try:
-    with open('./data/analyzed_data.yaml', 'w', encoding="utf-8") as file:
+    with open(pathAnalyzedData , 'w', encoding="utf-8") as file:
         yaml.dump(fileStructure, file)
     logging.info("analyzed_data_test.yaml file creation done!")
 except OSError as e:

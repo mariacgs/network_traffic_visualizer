@@ -15,13 +15,14 @@ import math
 import os
 import json
 import yaml
+import sys
 from utils import config_gen_utils
 from utils import utils
 from utils import CONSTANTS as CONST
 
 
-if not os.path.exists("./log_files"):
-    os.makedirs("./log_files")
+if not os.path.exists("./network_traffic_visualizer/log_files"):
+    os.makedirs("./network_traffic_visualizer/log_files")
 
 # Logger config
 logging.basicConfig(
@@ -29,7 +30,7 @@ logging.basicConfig(
     format='%(asctime)s [%(levelname)s] %(message)s',
     handlers=[
         # Adding one handler to manage the messages on a file
-        logging.FileHandler('./log_files/config_gen_jsonTest_log.txt', mode='w'),
+        logging.FileHandler('./network_traffic_visualizer/log_files/config_gen_jsonTest_log.txt', mode='w'),
         # Adding one handler to see messages on console
         logging.StreamHandler()
     ]
@@ -42,7 +43,9 @@ user_mode = None
 user_data = None
 
 # LOADING PARAMETERS
-setup = utils.file_loader("./data/sim_setup", "yaml")
+path = os.path.join("network_traffic_visualizer","data")
+pathSetup = os.path.join(path, "sim_setup")
+setup = utils.file_loader(pathSetup, "yaml")
 utils.check_sim_setup(setup)
 
 # CHOSING USER MODE OR AUTO MODE
@@ -63,15 +66,15 @@ while not CORRECT_CHOOSE:
 CORRECT_CHOOSE = False
 
 if user_mode == CONST.USER_MODE:
-    logging.info("You choosed the user mode!")
+    logging.info("You chose the user mode!")
     logging.info("Loading user file..")
-    user_data = utils.file_loader("./data/custom_graph", "yaml")
+    user_data = utils.file_loader(os.path.join(path ,"custom_graph"), "yaml")
     config_gen_utils.check_custom_file(user_data["data"])
     user_data = user_data["data"]
     switch_number = len(user_data["switches"])
     graph_type = user_data["graphType"]
 else:
-    logging.info("You choosed the auto mode!")
+    logging.info("You chose the auto mode!")
     while not CORRECT_CHOOSE:
         switch_number = input("Please insert the switch number min 2 - max 1000:\n")
         graph_type = input("Please enter c if you want a complete graph\n"
@@ -286,12 +289,14 @@ logging.info("..network.yaml file structure done!")
 
 logging.debug("NETWORK and PACKETS structure creation time:%s", utils.get_test_duration(start_test_time))
 
-if not os.path.exists("./data"):
+if not os.path.exists(path):
     os.makedirs("./data")
 
 
 logging.info("Writing network.yaml file..")
-with open('./data/network.yaml', 'w', encoding="utf-8") as file:
+
+networkPath = os.path.join(path, 'network.yaml')
+with open(networkPath, 'w', encoding="utf-8") as file:
     yaml.dump(networkData, file)
 logging.info("..network.yaml file creation done!")
 
@@ -303,11 +308,15 @@ logging.info("Writing packets file..")
 # a not readeble packets.yaml file having a smaller file and a better
 # computational time
 
+packetsPath = os.path.join(path, 'packets')
 if setup["packetsFile"] == "json":
-    with open('./data/packets.json', 'w', encoding="utf-8") as file:
+    packetsPathJSON = packetsPath + ".json"
+    print(packetsPathJSON)
+    with open(packetsPathJSON, 'w', encoding="utf-8") as file:
         json.dump(packets, file, ensure_ascii=False, indent=4)
 else:
-    with open('./data/packets.yaml', 'w', encoding="utf-8") as file:
+    packetsPathYAML = packetsPath + ".yaml"
+    with open(packetsPathYAML, 'w', encoding="utf-8") as file:
         yaml.dump(packets, file)
         #yaml.dump(packets, file, default_flow_style=False)
 logging.info("..packets file creation done!")

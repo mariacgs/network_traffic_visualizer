@@ -22,8 +22,11 @@ def file_loader(file_name, extension):
     
     #Getting absolute path from the running software directory
     current_folder = os.getcwd()
+
     #Abs path plus filename
-    network_file_path = current_folder + "\\" + file_name + "." + extension
+    #network_file_path = current_folder + "\\" + file_name + "." + extension
+    network_file_path = os.path.join(current_folder, file_name) + "." + extension
+    #network_file_path = file_name + "." + extension
 
     # Open and parse the JSON/YAML file
     try:
