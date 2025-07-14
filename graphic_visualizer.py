@@ -16,6 +16,7 @@ from utils import CONSTANTS as CONST
 from datetime import datetime, timedelta
 import math
 import sys
+import os
 
 # Logger config
 logging.basicConfig(
@@ -23,11 +24,15 @@ logging.basicConfig(
     format='%(asctime)s [%(levelname)s] %(message)s',
     handlers=[
         # Adding one handler to manage the messages on a file
-        logging.FileHandler('./log_files/graphic_visualizer_log.txt', mode='w'),
+        logging.FileHandler('./network_traffic_visualizer/log_files/graphic_visualizer_log.txt', mode='w'),
         # Adding one handler to see messages on console
         logging.StreamHandler()
     ]
 )
+
+path = os.path.join("network_traffic_visualizer", "data")
+pathNetwork = os.path.join(path, "network")
+pathAnalyzedData = os.path.join(path, "analyzed_data")
 
 class GraphicVisualizer(MovingCameraScene):
     """ Video graph creator """
@@ -36,9 +41,9 @@ class GraphicVisualizer(MovingCameraScene):
         # loadind date time for testing purpose
         start_test_time = datetime.now()
         # load network config
-        network_data = utils.file_loader("./data/network", "yaml")
+        network_data = utils.file_loader(pathNetwork, "yaml")
         # load analyzed data file
-        traffic_data = utils.file_loader("./data/analyzed_data", "yaml")
+        traffic_data = utils.file_loader(pathAnalyzedData, "yaml")
         # load traffic colors
         traffic_perc_colors = None
         if network_data[CONST.NETWORK["SIM_PARAMS"]]["colorblind"] == "yes":

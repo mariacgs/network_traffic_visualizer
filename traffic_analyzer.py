@@ -33,7 +33,7 @@ logging.basicConfig(
 
 pathNetwork = os.path.join(path, "network")
 pathPackets = os.path.join(path, "packets")
-pathAnalyzedData = os.path.join(path, "analyzed_data,yaml")
+pathAnalyzedData = os.path.join(path, "analyzed_data2.yaml")
 
 start_test_time = datetime.now()
 
@@ -123,7 +123,7 @@ lastFirstUDindex = averageFractions
 packetsDataIterator = iter(packetsData)
 
 # Defining the amount of simulation time in seconds
-simTime = timedelta(seconds=int(networkData[CONST.NETWORK["SIM_PARAMS"]]["simTime"]))
+simTime = timedelta(seconds=(networkData[CONST.NETWORK["SIM_PARAMS"]]["simTime"]))
 
 # Taking first packet to analyze
 packet = next(packetsDataIterator, None)
