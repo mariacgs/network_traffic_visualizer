@@ -1,9 +1,0 @@
-2025-07-12 15:09:08,103 [INFO] Loading files..
-2025-07-12 15:09:08,104 [INFO] Loading network file..
-2025-07-12 15:09:08,108 [INFO] ..done!
-2025-07-12 15:09:08,111 [INFO] Loading packets file..
-2025-07-12 15:09:08,135 [INFO] ..done!
-2025-07-12 15:09:08,135 [DEBUG] NETWORK and PACKETS structure loading time:Test duration:0:00:00.031597
-2025-07-12 15:09:08,135 [INFO] Analyzing files..
-2025-07-12 15:09:08,135 [INFO] Simulation parameters:
-2025-07-12 15:09:08,135 [INFO] {'averageDelta': 1000, 'colorblind': 'no', 'dotsSize': 'adaptive', 'graphType': 'graph', 'linkCap': 10, 'packetsFile': 'json', 'simTime': 10, 'startSimTime': datetime.datetime(2024, 3, 22, 12, 30), 'updateDelta': 200}
