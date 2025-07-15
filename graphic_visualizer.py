@@ -32,7 +32,7 @@ logging.basicConfig(
 
 path = os.path.join("network_traffic_visualizer", "data")
 pathNetwork = os.path.join(path, "network")
-pathAnalyzedData = os.path.join(path, "analyzed_data")
+pathAnalyzedData = os.path.join(path, "analyzed_data2")
 
 class GraphicVisualizer(MovingCameraScene):
     """ Video graph creator """
@@ -110,7 +110,7 @@ class GraphicVisualizer(MovingCameraScene):
         grafo = Graph(switches, links, labels=True, layout="circular", layout_scale=math.sqrt(len(switches)), vertex_config={"color":WHITE},
                       edge_config={"stroke_width": stroke_width, "color":START_COLOR}
                       )
-        
+        print(grafo.edges, links)
         infos = GraphicVisualizer.show_info(self, sim_params, network_data, grafo, font_size)
 
         phase_time_txt.next_to(grafo, UP)
@@ -133,6 +133,7 @@ class GraphicVisualizer(MovingCameraScene):
             # definig all the traffic color links at timeWalker time
             for content in traffic_data[CONST.ANALYZED_DATA["TRAFFICS"]]:
                 color_perc = int(content["traffic"][traffic_count])
+                print(grafo.edges)
                 animations.append(grafo.edges[(content["endpoints"][CONST.EP_A], content["endpoints"][CONST.EP_B])].animate.set_color(traffic_perc_colors[color_perc]["hexValue"]))
             # playing animations
             if(time_walker == phase_time):
