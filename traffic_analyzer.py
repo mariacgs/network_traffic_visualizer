@@ -48,7 +48,7 @@ utils.check_network_sim_setup(networkData[SIM_PARAMETERS])
 
 logging.info("Loading packets file..")
 #packetsData = utils.file_loader(pathPackets, networkData[SIM_PARAMETERS]["packetsFile"])
-packetsData = utils.file_loader("data/packets1", "yaml")
+packetsData = utils.file_loader("data/packetsMiddleSizeMsg", "yaml")
 logging.info("..done!")
 
 

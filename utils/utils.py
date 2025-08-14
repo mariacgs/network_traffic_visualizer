@@ -149,7 +149,10 @@ def check_network_sim_setup(setup):
     logger = logging.getLogger()
 
     try:
-        datetime.strptime(str(setup["startSimTime"]), "%Y-%m-%d %H:%M:%S.%f")
+        if len(str(setup["startSimTime"])) == 19:
+            datetime.strptime(str(setup["startSimTime"]), "%Y-%m-%d %H:%M:%S")
+        else:
+            datetime.strptime(str(setup["startSimTime"]), "%Y-%m-%d %H:%M:%S.%f")
 
         if setup["graphType"] not in ["mesh", "torus", "graph", "complete"]:
             raise exceptions.CustomFileError("WARNING, \"graphType\" not valid, please check the README")
